@@ -3,14 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мій перший сайт</title>
+    <title>MidnightRAT — Code That Works in the Dark</title>
+    <meta name="description" content="MidnightRAT — programmer, Fedora Linux specialist, software adapter">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
-        h1 { color: #333; }
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #a855f7;
+            --accent-gradient: linear-gradient(135deg, #00d4ff, #a855f7);
+            --border: #27272a;
+            --radius: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 4px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border);
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .hero-name {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.6s forwards;
+        }
+
+        .scroll-hint svg {
+            width: 24px;
+            height: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .about-text strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .about-list {
+            padding-left: 20px;
+            margin: 0 0 20px 0;
+            list-style: disc;
+        }
+
+        .about-list li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .project-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--accent-purple);
+        }
+
+        .project-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Contact Section */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: var(--accent-cyan);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Donate Button */
+        .donate-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 32px;
+            padding: 14px 28px;
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        .donate-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-8px);
+            }
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .lang-switch {
+                top: 12px;
+                right: 12px;
+            }
+
+            section {
+                padding: 60px 16px;
+            }
+
+            .kved-badge {
+                padding: 12px 16px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Visibility toggle for languages */
+        [data-lang="en"] { display: none; }
+        html[data-active-lang="en"] [data-lang="en"] { display: block; }
+        html[data-active-lang="en"] [data-lang="uk"] { display: none; }
+        html[data-active-lang="uk"] [data-lang="en"] { display: none; }
+        html[data-active-lang="uk"] [data-lang="uk"] { display: block; }
+
+        /* Inline lang elements */
+        span[data-lang="en"], a[data-lang="en"], button[data-lang="en"] {
+            display: none;
+        }
+        html[data-active-lang="en"] span[data-lang="en"],
+        html[data-active-lang="en"] a[data-lang="en"],
+        html[data-active-lang="en"] button[data-lang="en"] {
+            display: inline;
+        }
+        html[data-active-lang="en"] span[data-lang="uk"],
+        html[data-active-lang="en"] a[data-lang="uk"],
+        html[data-active-lang="en"] button[data-lang="uk"] {
+            display: none;
+        }
+        html[data-active-lang="uk"] span[data-lang="en"],
+        html[data-active-lang="uk"] a[data-lang="en"],
+        html[data-active-lang="uk"] button[data-lang="en"] {
+            display: none;
+        }
+        html[data-active-lang="uk"] span[data-lang="uk"],
+        html[data-active-lang="uk"] a[data-lang="uk"],
+        html[data-active-lang="uk"] button[data-lang="uk"] {
+            display: inline;
+        }
     </style>
 </head>
 <body>
-    <h1>Привіт, світе!</h1>
-    <p>Мій сайт на GitHub Pages працює!</p>
+    <!-- Language Switcher -->
+    <nav class="lang-switch">
+        <button class="lang-btn" data-set-lang="uk">UA</button>
+        <button class="lang-btn" data-set-lang="en">EN</button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img src="logo.png" alt="MidnightRAT" class="hero-logo">
+        <h1 class="hero-name">MidnightRAT</h1>
+        <p class="hero-tagline">
+            <span data-lang="uk">Код, що працює у темряві</span>
+            <span data-lang="en">Code that works in the dark</span>
+        </p>
+        <div class="scroll-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section>
+        <h2 class="section-title">
+            <span data-lang="uk">Про мене</span>
+            <span data-lang="en">About</span>
+        </h2>
+        <div data-lang="uk">
+            <p class="about-text">Розробник програмного забезпечення та спеціаліст з інформаційних технологій. Основний напрямок роботи — створення, адаптація та супровід програмного забезпечення для <strong>Fedora Linux</strong>.</p>
+            <p class="about-text">Спеціалізуюся на:</p>
+            <ul class="about-list">
+                <li>розробці програмного забезпечення;</li>
+                <li>адаптації застосунків під Fedora Linux;</li>
+                <li>створенні та супроводі RPM-пакетів;</li>
+                <li>консультуванні з питань Linux та інформаційних технологій;</li>
+                <li>інтеграції програмного забезпечення у корпоративні та персональні середовища;</li>
+                <li>технічній документації та автоматизації процесів.</li>
+            </ul>
+            <p class="about-text">Дотримуюся принципу, що програмне забезпечення повинно бути відтворюваним, передбачуваним і відповідати вимогам дистрибутива. Мінімізую сторонні залежності, дотримуюся стандартів RPM-пакування та використовую сучасні практики розробки й супроводу.</p>
+        </div>
+        <div data-lang="en">
+            <p class="about-text">Software developer and IT specialist. Primary focus — creation, adaptation, and maintenance of software for <strong>Fedora Linux</strong>.</p>
+            <p class="about-text">Specializing in:</p>
+            <ul class="about-list">
+                <li>software development;</li>
+                <li>application adaptation for Fedora Linux;</li>
+                <li>RPM package creation and maintenance;</li>
+                <li>consulting on Linux and IT matters;</li>
+                <li>software integration into corporate and personal environments;</li>
+                <li>technical documentation and process automation.</li>
+            </ul>
+            <p class="about-text">I adhere to the principle that software should be reproducible, predictable, and compliant with distribution requirements. I minimize external dependencies, follow RPM packaging standards, and use modern development and maintenance practices.</p>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section>
+        <h2 class="section-title">
+            <span data-lang="uk">Проєкти</span>
+            <span data-lang="en">Projects</span>
+        </h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-name">OrcaSlicer RPM</div>
+                <div class="project-desc">
+                    <span data-lang="uk">Підтримка RPM-пакета та адаптація OrcaSlicer для Fedora Linux. Інтеграція з екосистемою Fedora, спрощення встановлення й оновлення.</span>
+                    <span data-lang="en">RPM package support and OrcaSlicer adaptation for Fedora Linux. Integration with the Fedora ecosystem, simplified installation and updates.</span>
+                </div>
+                <a href="https://github.com/MidnightRAT/OrcaSlicer-rpm" target="_blank" rel="noopener" class="project-link">
+                    GitHub
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-name">ElegooSlicer RPM</div>
+                <div class="project-desc">
+                    <span data-lang="uk">RPM-пакет для Fedora Linux з урахуванням особливостей дистрибутива та його пакетної системи.</span>
+                    <span data-lang="en">RPM package for Fedora Linux, accounting for distribution specifics and its package system.</span>
+                </div>
+                <a href="https://github.com/MidnightRAT/ElegooSlicer-rpm" target="_blank" rel="noopener" class="project-link">
+                    GitHub
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </a>
+            </div>
+            <div class="project-card">
+                <div class="project-name">ChirikSIP</div>
+                <div class="project-desc">
+                    <span data-lang="uk">Програмний проєкт у сфері IP-телефонії та SIP, орієнтований на практичне використання та інтеграцію в Linux-середовища.</span>
+                    <span data-lang="en">Software project in IP telephony and SIP, focused on practical use and integration into Linux environments.</span>
+                </div>
+                <a href="https://github.com/MidnightRAT/ChirikSIP" target="_blank" rel="noopener" class="project-link">
+                    GitHub
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section>
+        <h2 class="section-title">
+            <span data-lang="uk">Контакти</span>
+            <span data-lang="en">Contact</span>
+        </h2>
+        <div class="contact-list">
+            <a href="https://t.me/RedEyesNightRAT" target="_blank" rel="noopener" class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                </div>
+                @RedEyesNightRAT
+            </a>
+            <a href="https://github.com/MidnightRAT" target="_blank" rel="noopener" class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                </div>
+                GitHub
+            </a>
+        </div>
+        <a href="https://secure.wayforpay.com/donate/d29145e2b8e3c" target="_blank" rel="noopener" class="donate-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span data-lang="uk">Підтримати</span>
+            <span data-lang="en">Support</span>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <span data-lang="uk">&copy; MidnightRAT, 2025</span>
+        <span data-lang="en">&copy; MidnightRAT, 2025</span>
+    </footer>
+
+    <script>
+        // Language switcher
+        const html = document.documentElement;
+        const langBtns = document.querySelectorAll('[data-set-lang]');
+        const langKey = 'midnightrat-lang';
+
+        function setLang(lang) {
+            html.setAttribute('data-active-lang', lang);
+            html.setAttribute('lang', lang === 'uk' ? 'uk' : 'en');
+            localStorage.setItem(langKey, lang);
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-set-lang') === lang);
+            });
+        }
+
+        // Init language
+        const savedLang = localStorage.getItem(langKey) || 'uk';
+        setLang(savedLang);
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLang(btn.getAttribute('data-set-lang'));
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
