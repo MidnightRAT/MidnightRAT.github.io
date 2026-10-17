@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MidnightRAT — Code That Works in the Dark</title>
-    <meta name="description" content="MidnightRAT — programmer, Fedora Linux specialist, software adapter">
+    <title>MidnightRAT — RPM for Fedora 44 & Fedora 45 (x86_64): OrcaSlicer, ElegooSlicer, FreeCAD</title>
+    <meta name="description" content="RPM-пакети OrcaSlicer, ElegooSlicer та FreeCAD для Fedora 44 і Fedora 45 (x86_64). Встановлення через COPR, збірка на GitHub Actions, супровід пакетів.">
+    <meta name="keywords" content="OrcaSlicer, ElegooSlicer, FreeCAD, RPM, Fedora 44, Fedora 45, x86_64, Fedora Linux, COPR, 3D slicer, CAD, Linux">
+    <meta name="author" content="MidnightRAT">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://midnightrat.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://midnightrat.github.io/">
+    <meta property="og:title" content="MidnightRAT — RPM for Fedora 44 & Fedora 45 (x86_64)">
+    <meta property="og:description" content="OrcaSlicer, ElegooSlicer та FreeCAD RPM-пакети для Fedora 44 і Fedora 45 (x86_64). Встановлення через COPR.">
+    <meta property="og:image" content="https://midnightrat.github.io/logo.png">
+    <meta property="og:locale" content="uk_UA">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MidnightRAT — RPM for Fedora 44 & Fedora 45 (x86_64)">
+    <meta name="twitter:description" content="OrcaSlicer, ElegooSlicer та FreeCAD RPM-пакети для Fedora 44 і Fedora 45 (x86_64).">
+    <meta name="twitter:image" content="https://midnightrat.github.io/logo.png">
     <meta name="google-site-verification" content="0H06B_a7tBkwD3hlMP-k1CCYlLLaw4NcWGQez6yGucA" />
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -237,6 +252,16 @@
             margin-bottom: 8px;
         }
 
+        .project-name a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .project-name a:hover {
+            color: var(--accent-cyan);
+        }
+
         .project-desc {
             font-size: 0.95rem;
             color: var(--text-secondary);
@@ -397,6 +422,67 @@
             display: inline;
         }
     </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "name": "MidnightRAT",
+                "url": "https://midnightrat.github.io/",
+                "image": "https://midnightrat.github.io/logo.png",
+                "jobTitle": "Software Developer",
+                "sameAs": [
+                    "https://github.com/MidnightRAT",
+                    "https://t.me/RedEyesNightRAT"
+                ],
+                "knowsAbout": [
+                    "Fedora Linux",
+                    "Fedora 44",
+                    "Fedora 45",
+                    "RPM packaging",
+                    "x86_64",
+                    "COPR",
+                    "OrcaSlicer",
+                    "ElegooSlicer",
+                    "FreeCAD"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "name": "MidnightRAT",
+                "url": "https://midnightrat.github.io/",
+                "inLanguage": ["uk", "en"]
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "name": "OrcaSlicer RPM",
+                "description": "RPM package for OrcaSlicer on Fedora 44 and Fedora 45 (x86_64).",
+                "codeRepository": "https://github.com/MidnightRAT/OrcaSlicer-rpm",
+                "license": "https://spdx.org/licenses/AGPL-3.0-or-later.html"
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "name": "ElegooSlicer RPM",
+                "description": "RPM package for ElegooSlicer on Fedora 44 and Fedora 45 (x86_64).",
+                "codeRepository": "https://github.com/MidnightRAT/ElegooSlicer-rpm",
+                "license": "https://spdx.org/licenses/AGPL-3.0-or-later.html"
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "name": "FreeCAD RPM",
+                "description": "RPM package for FreeCAD on Fedora 44 and Fedora 45 (x86_64).",
+                "codeRepository": "https://github.com/MidnightRAT/FreeCAD-rpm"
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "name": "ChirikSIP",
+                "description": "SIP and IP telephony software for Linux, packaged as RPM, DEB and Flatpak.",
+                "codeRepository": "https://github.com/MidnightRAT/ChirikSIP"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <!-- Language Switcher -->
@@ -427,7 +513,7 @@
             <span data-lang="en">About</span>
         </h2>
         <div data-lang="uk">
-            <p class="about-text">Розробник програмного забезпечення та спеціаліст з інформаційних технологій. Основний напрямок роботи — створення, адаптація та супровід програмного забезпечення для <strong>Fedora Linux</strong>.</p>
+            <p class="about-text">Розробник програмного забезпечення та спеціаліст з інформаційних технологій. Основний напрямок роботи — створення, адаптація та супровід <strong>RPM-пакетів</strong> для <strong>Fedora Linux</strong>, зокрема <strong>Fedora 44</strong> та <strong>Fedora 45</strong> (<strong>x86_64</strong>).</p>
             <p class="about-text">Спеціалізуюся на:</p>
             <ul class="about-list">
                 <li>розробці програмного забезпечення;</li>
@@ -440,7 +526,7 @@
             <p class="about-text">Дотримуюся принципу, що програмне забезпечення повинно бути відтворюваним, передбачуваним і відповідати вимогам дистрибутива. Мінімізую сторонні залежності, дотримуюся стандартів RPM-пакування та використовую сучасні практики розробки й супроводу.</p>
         </div>
         <div data-lang="en">
-            <p class="about-text">Software developer and IT specialist. Primary focus — creation, adaptation, and maintenance of software for <strong>Fedora Linux</strong>.</p>
+            <p class="about-text">Software developer and IT specialist. Primary focus — creation, adaptation, and maintenance of <strong>RPM packages</strong> for <strong>Fedora Linux</strong>, including <strong>Fedora 44</strong> and <strong>Fedora 45</strong> (<strong>x86_64</strong>).</p>
             <p class="about-text">Specializing in:</p>
             <ul class="about-list">
                 <li>software development;</li>
@@ -462,10 +548,10 @@
         </h2>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-name">OrcaSlicer RPM</div>
+                <div class="project-name"><a href="https://github.com/MidnightRAT/OrcaSlicer-rpm" target="_blank" rel="noopener">OrcaSlicer RPM</a></div>
                 <div class="project-desc">
-                    <span data-lang="uk">Підтримка RPM-пакета та адаптація OrcaSlicer для Fedora Linux. Інтеграція з екосистемою Fedora, спрощення встановлення й оновлення.</span>
-                    <span data-lang="en">RPM package support and OrcaSlicer adaptation for Fedora Linux. Integration with the Fedora ecosystem, simplified installation and updates.</span>
+                    <span data-lang="uk">RPM-пакет <strong>OrcaSlicer</strong> для <strong>Fedora 44</strong> та <strong>Fedora 45</strong> (<strong>x86_64</strong>). Адаптація слайсера 3D-друку для Fedora Linux з використанням системних бібліотек. Встановлення через COPR.</span>
+                    <span data-lang="en"><strong>OrcaSlicer</strong> RPM package for <strong>Fedora 44</strong> and <strong>Fedora 45</strong> (<strong>x86_64</strong>). 3D printing slicer adapted for Fedora Linux using system libraries. Install via COPR.</span>
                 </div>
                 <div class="project-badges">
                     <a href="https://github.com/MidnightRAT/OrcaSlicer-rpm" target="_blank" rel="noopener"><img src="https://github.com/MidnightRAT/OrcaSlicer-rpm/actions/workflows/build-rpm.yml/badge.svg" alt="Build"></a>
@@ -473,10 +559,10 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-name">ElegooSlicer RPM</div>
+                <div class="project-name"><a href="https://github.com/MidnightRAT/ElegooSlicer-rpm" target="_blank" rel="noopener">ElegooSlicer RPM</a></div>
                 <div class="project-desc">
-                    <span data-lang="uk">RPM-пакет для Fedora Linux з урахуванням особливостей дистрибутива та його пакетної системи.</span>
-                    <span data-lang="en">RPM package for Fedora Linux, accounting for distribution specifics and its package system.</span>
+                    <span data-lang="uk">RPM-пакет <strong>ElegooSlicer</strong> для <strong>Fedora 44</strong> та <strong>Fedora 45</strong> (<strong>x86_64</strong>). Слайсер для 3D-принтерів Elegoo (на основі OrcaSlicer), адаптований під пакетну систему Fedora. Встановлення через COPR.</span>
+                    <span data-lang="en"><strong>ElegooSlicer</strong> RPM package for <strong>Fedora 44</strong> and <strong>Fedora 45</strong> (<strong>x86_64</strong>). Slicer for Elegoo 3D printers (based on OrcaSlicer), adapted to the Fedora package system. Install via COPR.</span>
                 </div>
                 <div class="project-badges">
                     <a href="https://github.com/MidnightRAT/ElegooSlicer-rpm" target="_blank" rel="noopener"><img src="https://github.com/MidnightRAT/ElegooSlicer-rpm/actions/workflows/build-rpm.yml/badge.svg" alt="Build"></a>
@@ -484,10 +570,10 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-name">FreeCAD RPM</div>
+                <div class="project-name"><a href="https://github.com/MidnightRAT/FreeCAD-rpm" target="_blank" rel="noopener">FreeCAD RPM</a></div>
                 <div class="project-desc">
-                    <span data-lang="uk">RPM-пакет FreeCAD для Fedora Linux з максимально можливим використанням системних бібліотек. Спрощене встановлення та оновлення через COPR.</span>
-                    <span data-lang="en">RPM package for FreeCAD on Fedora Linux, built with maximum use of system libraries. Simplified installation and updates via COPR.</span>
+                    <span data-lang="uk">RPM-пакет <strong>FreeCAD</strong> для <strong>Fedora 44</strong> та <strong>Fedora 45</strong> (<strong>x86_64</strong>). Параметричний 3D CAD-моделер, зібраний з максимально можливим використанням системних бібліотек Fedora. Встановлення через COPR.</span>
+                    <span data-lang="en"><strong>FreeCAD</strong> RPM package for <strong>Fedora 44</strong> and <strong>Fedora 45</strong> (<strong>x86_64</strong>). Parametric 3D CAD modeler built with maximum use of Fedora system libraries. Install via COPR.</span>
                 </div>
                 <div class="project-badges">
                     <a href="https://github.com/MidnightRAT/FreeCAD-rpm" target="_blank" rel="noopener"><img src="https://github.com/MidnightRAT/FreeCAD-rpm/actions/workflows/build-rpm.yml/badge.svg" alt="Build"></a>
@@ -495,10 +581,10 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-name">ChirikSIP</div>
+                <div class="project-name"><a href="https://github.com/MidnightRAT/ChirikSIP" target="_blank" rel="noopener">ChirikSIP</a></div>
                 <div class="project-desc">
-                    <span data-lang="uk">Програмний проєкт у сфері IP-телефонії та SIP, орієнтований на практичне використання та інтеграцію в Linux-середовища.</span>
-                    <span data-lang="en">Software project in IP telephony and SIP, focused on practical use and integration into Linux environments.</span>
+                    <span data-lang="uk">Програмний проєкт у сфері IP-телефонії та SIP, орієнтований на практичне використання та інтеграцію в Linux-середовища. Пакети: RPM, DEB, Flatpak.</span>
+                    <span data-lang="en">Software project in IP telephony and SIP, focused on practical use and integration into Linux environments. Packages: RPM, DEB, Flatpak.</span>
                 </div>
                 <div class="project-badges">
                     <a href="https://github.com/MidnightRAT/ChirikSIP" target="_blank" rel="noopener"><img src="https://github.com/MidnightRAT/ChirikSIP/actions/workflows/build-rpm.yml/badge.svg" alt="RPM Build"></a>
